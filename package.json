@@ -2,7 +2,14 @@
   "name": "fullstack-app",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "ready-dependencies": "npm install",
+    "ready-prisma": "npx prisma generate",
+    "backend": "nx serve backend",
+    "frontend": "nx serve frontend",
+    "start": "nx run-many --parallel --target=serve --projects=frontend,backend ",
+    "production": "npm run ready-prisma && nx run-many --parallel --target=serve --projects=frontend,backend "
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.0",

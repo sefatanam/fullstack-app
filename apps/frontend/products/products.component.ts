@@ -9,11 +9,15 @@ import { Observable } from 'rxjs';
   selector: 'fullstack-app-products',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  template: `<p>products works!</p>
+  template: `
+    <p class="underline">Fetch from API:<br /></p>
+    <code> Backend Made With: NestJs & SqLite </code>
+    <br />
     <pre>
-    {{ products$ | async | json }}
-  </pre
-    > `,
+      {{ products$ | async | json }}
+    </pre
+    >
+  `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

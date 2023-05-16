@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+
+<header class="bg-slate-900 text-white p-2">
+    <ul class="flex gap-5">
+        <li class="p-2 hover:bg-slate-700 rounded-md">
+            <a routerLink="/">Home</a>
+        </li>
+        <li class="p-2 hover:bg-slate-700 rounded-md">
+            <a routerLink="/products">Products</a>
+        </li>
+    </ul>
+</header>
+<main style="height: calc(100vh - 56px);" class="h-full flex justify-center items-center text-xl">
+    <router-outlet></router-outlet>
+</main>

@@ -6,9 +6,10 @@
     "ready-dependencies": "npm install",
     "ready-prisma": "npx prisma generate",
     "backend": "nx serve backend",
-    "frontend": "nx serve frontend",
-    "start": "nx run-many --parallel --target=serve --projects=frontend,backend ",
-    "production": "npm run ready-prisma && nx run-many --parallel --target=serve --projects=frontend,backend "
+    "frontend": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
+    "start": "nx run-many --parallel --target=serve --host=0.0.0.0 --prod --projects=frontend,backend",
+    "frontend-production": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
+    "production": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true && nx serve backend"
   },
   "private": true,
   "dependencies": {

@@ -23,8 +23,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.prod.ts"
+              "replace": "apps/frontend/src/environments/environment.ts",
+              "with": "apps/frontend/src/environments/environment.prod.ts"
             }
           ],
           "budgets": [
@@ -96,6 +96,10 @@
       "options": {
         "buildTarget": "frontend:build"
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/frontend/Dockerfile . -t frontend"
     }
   }
 }

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule, HttpClientModule],
   template: `
-    <p class="underline">Fetch from API:<br /></p>
+    <p class="underline">Fetch from API: 🎉<br /></p>
     <code> Backend Made With: NestJs & SqLite </code>
     <br />
     <pre>

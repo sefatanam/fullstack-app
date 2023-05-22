@@ -1,11 +1,16 @@
-FROM docker.io/node:lts-alpine
-ENV NODE_ENV=production
-ENV BACKEND_PORT=3000
-ENV FRONTEND_PORT=4200
-
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json", "nx.json","./"]
-
-RUN npm install --production --silent && mv node_modules ../
+FROM docker.io/node:lts-alpine as node
+RUN apk add g++ make py3-pip
+WORKDIR /app
+RUN npm install -g npm@9.6.7
+COPY ["package.json", "package-lock.json","./"]
+RUN npm install 
+RUN npm i -g @nrwl/cli vite pm2@latest
+COPY ["nx.json", "./"]
 COPY . .
-CMD ["npm","start"]
+
+RUN npx prisma generate
+RUN npx nx run backend:build:production
+RUN npx nx run frontend:build:production
+EXPOSE 3000 5173
+CMD ["npm","run","app"]
+

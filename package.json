@@ -3,13 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ready-dependencies": "npm install",
-    "ready-prisma": "npx prisma generate",
     "backend": "nx serve backend",
+    "backend-prod": "pm2 start dist/apps/backend/main.js -- --port 3000",
     "frontend": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
-    "start": "nx run-many --parallel --target=serve --host=0.0.0.0 --prod --projects=frontend,backend",
-    "frontend-production": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
-    "production": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true && nx serve backend"
+    "frontend-prod": "vite dist/apps/frontend --host=0.0.0.0",
+    "app": "npm run backend-prod && npm run frontend-prod"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +23,7 @@
     "@nestjs/core": "^9.1.1",
     "@nestjs/platform-express": "^9.1.1",
     "axios": "^1.0.0",
+    "prisma": "^4.14.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",

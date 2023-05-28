@@ -6,7 +6,12 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  public getProducts() {
-    return this.productsService.getProducts();
+  public async getProducts() {
+    return await this.productsService.getProducts();
+  }
+
+  @Get('/:id')
+  public async getProduct() {
+    return await this.productsService.getProduct('');
   }
 }

@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "backend": "nx serve backend",
+    "backend-dev": "nx serve backend",
     "backend-prod": "pm2 start dist/apps/backend/main.js -- --port 3000",
-    "frontend": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
+    "frontend-dev": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
     "frontend-prod": "vite dist/apps/frontend --host=0.0.0.0",
-    "app": "npm run backend-prod && npm run frontend-prod"
+    "app": "npm run backend-prod && npm run frontend-prod",
+    "dev": "concurrently -p=\"{name}\" -n=\"NestJS 🙈,Angular 🐵\" -c=\"green,blue\" \"npm run backend-dev\" \"npm run frontend-dev\""
   },
   "private": true,
   "dependencies": {
@@ -52,12 +53,13 @@
     "@nx/web": "16.1.4",
     "@nx/webpack": "16.1.4",
     "@nx/workspace": "16.1.4",
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "^4.14.1",
     "@schematics/angular": "~16.0.0",
     "@types/jest": "^29.4.0",
     "@types/node": "~18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "concurrently": "^8.0.1",
     "cypress": "^12.11.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",

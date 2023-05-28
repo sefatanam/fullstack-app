@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Tag {
-  id   String @id @default(uuid())
-  name String
+  id       String    @id @default(uuid())
+  name     String
+  products Product[] @relation("ProductTags")
 }
 
 model Product {
@@ -23,4 +24,6 @@ model Product {
   image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  tags        Tag[]    @relation("ProductTags")
+  isDisable   Boolean  @default(false)
 }

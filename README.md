@@ -19,3 +19,9 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+### Prisma Migration 
+
+1. run `npx prisma migrate dev --name "YOUR_MIGRATE_MESSAGE_WILL_BE_HERE"`
+2. run `npx prisma generate`

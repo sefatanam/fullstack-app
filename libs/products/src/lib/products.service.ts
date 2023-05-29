@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Product } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { ProductRequest } from '../dtos/product.dto';
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -10,6 +11,7 @@ export class ProductsService {
         isDisable: false,
       },
       select: {
+        id: true,
         name: true,
         price: true,
         description: true,
@@ -44,7 +46,7 @@ export class ProductsService {
     });
   }
 
-  async updateProduct(id: string, product: Partial<Product>) {
+  async updateProduct(id: string, product: ProductRequest) {
     return await prisma.product.update({
       where: {
         id: id,
@@ -53,7 +55,7 @@ export class ProductsService {
     });
   }
 
-  async createProduct(product: Product) {
+  async createProduct(product: ProductRequest) {
     return await prisma.product.create({
       data: product,
     });

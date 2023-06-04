@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "backend-dev": "nx serve backend",
-    "backend-prod": "pm2 start dist/apps/backend/main.js -- --port 3000",
-    "frontend-dev": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
-    "frontend-prod": "vite dist/apps/frontend --host=0.0.0.0",
-    "app": "npm run backend-prod && npm run frontend-prod",
-    "dev": "concurrently -p=\"{name}\" -n=\"NestJS 🙈,Angular 🐵\" -c=\"green,blue\" \"npm run backend-dev\" \"npm run frontend-dev\""
+    "backend:dev": "nx serve backend",
+    "backend:prod": "pm2 start dist/apps/backend/main.js -- --port 3000",
+    "frontend:dev": "nx serve frontend --host=0.0.0.0 --poll 100 --disableHostCheck=true",
+    "frontend:prod": "vite dist/apps/frontend --host=0.0.0.0",
+    "app": "npm run backend:prod && npm run frontend:prod",
+    "dev": "concurrently -p=\"{name}\" -n=\"NestJS 🙈,Angular 🐵\" -c=\"green,blue\" \"npm run backend:dev\" \"npm run frontend:dev\""
   },
   "private": true,
   "dependencies": {

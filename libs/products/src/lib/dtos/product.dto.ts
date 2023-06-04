@@ -1,8 +1,9 @@
-import { IsBoolean, IsInt, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsInt, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-export class ProductRequest {
-  @IsString()
-  readonly id: string;
+import { TagDto } from '@fullstack-app/tags';
+import { Type } from 'class-transformer';
+
+export class ProductDto {
   @ApiProperty()
   @IsString()
   readonly name: string;
@@ -16,6 +17,12 @@ export class ProductRequest {
   @IsString()
   readonly image: string;
   @ApiProperty()
+  @IsString()
+  readonly videoUrl: string;
   @IsBoolean()
   readonly isDisable: boolean;
+  @ApiProperty({ isArray: true, type: () => TagDto })
+  @IsArray()
+  @Type(() => TagDto)
+  tags: TagDto[];
 }

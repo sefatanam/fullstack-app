@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-import { ProductRequest } from '../dtos/product.dto';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { ProductDto } from './dtos/product.dto';
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -46,25 +46,58 @@ export class ProductsService {
     });
   }
 
-  async updateProduct(id: string, product: ProductRequest) {
-    return await prisma.product.update({
-      where: {
-        id: id,
+  async createProduct(product: ProductDto) {
+    const createdProduct = await prisma.product.create({
+      data: {
+        ...product,
+        tags: {
+          create: product.tags.map((tagDto) => ({
+            name: tagDto.name,
+          })),
+        },
       },
-      data: product,
+      include: {
+        tags: true,
+      },
     });
-  }
 
-  async createProduct(product: ProductRequest) {
-    return await prisma.product.create({
-      data: product,
-    });
+    return createdProduct;
   }
 
   async deleteProduct(id: string) {
     return await prisma.product.delete({
       where: {
         id: id,
+      },
+    });
+  }
+
+  /**
+   * Support PATCH Update also
+   * @param id
+   * @param product
+   * @returns
+   */
+  async updateProduct(id: string, product: ProductDto) {
+    const updateData: Prisma.ProductUpdateInput =
+      product as Prisma.ProductUpdateInput;
+
+    if (product.tags) {
+      const tagsData: Prisma.TagCreateNestedManyWithoutProductsInput = {
+        create: product.tags.map((tag) => ({
+          name: tag.name,
+        })),
+      };
+      updateData.tags = tagsData;
+    }
+
+    return prisma.product.update({
+      where: {
+        id: id,
+      },
+      data: updateData,
+      include: {
+        tags: true,
       },
     });
   }

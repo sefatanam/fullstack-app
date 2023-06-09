@@ -3,10 +3,10 @@ import {
   Controller,
   Delete,
   Get,
-  HttpStatus,
+  HttpStatus, NotFoundException,
   Param,
   Patch,
-  Post,
+  Post, Res,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import {
@@ -38,7 +38,11 @@ export class ProductsController {
   @ApiParam({ name: 'id', type: String })
   @Get(':id')
   public async getProduct(@Param('id') id: string) {
-    return await this.productsService.getProduct(id);
+    const result = await this.productsService.getProduct(id);
+    if(result===null){
+      throw new NotFoundException(`Product ${id} not found`);
+    }
+    return result;
   }
 
   @ApiOperation({ description: 'Create product' })

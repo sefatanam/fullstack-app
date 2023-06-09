@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient } from '@prisma/client';
-import { ProductDto } from './dtos/product.dto';
+import {Injectable} from '@nestjs/common';
+import {Prisma, PrismaClient} from '@prisma/client';
+import {ProductDto} from './dtos/product.dto';
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -47,7 +47,7 @@ export class ProductsService {
   }
 
   async createProduct(product: ProductDto) {
-    const createdProduct = await prisma.product.create({
+    return await prisma.product.create({
       data: {
         ...product,
         tags: {
@@ -60,8 +60,6 @@ export class ProductsService {
         tags: true,
       },
     });
-
-    return createdProduct;
   }
 
   async deleteProduct(id: string) {
@@ -83,14 +81,12 @@ export class ProductsService {
       product as Prisma.ProductUpdateInput;
 
     if (product.tags) {
-      const tagsData: Prisma.TagCreateNestedManyWithoutProductsInput = {
+      updateData.tags = {
         create: product.tags.map((tag) => ({
           name: tag.name,
         })),
       };
-      updateData.tags = tagsData;
     }
-
     return prisma.product.update({
       where: {
         id: id,

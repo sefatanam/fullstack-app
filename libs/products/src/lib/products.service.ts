@@ -1,6 +1,6 @@
-import {Injectable} from '@nestjs/common';
-import {Prisma, PrismaClient} from '@prisma/client';
-import {ProductDto} from './dtos/product.dto';
+import { Injectable } from "@nestjs/common";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { ProductDto } from "@fullstack-app/api-model";
 
 const prisma = new PrismaClient();
 @Injectable()

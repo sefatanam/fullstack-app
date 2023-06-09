@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Product } from '@prisma/client';
-import { HttpClientModule } from '@angular/common/http';
-import { ProductsService } from './products.service';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
+import { ProductsService } from "./products.service";
+import { Observable } from "rxjs";
+import { ProductDto } from "@fullstack-app/api-model";
 
 @Component({
   selector: 'fullstack-app-products',
@@ -22,5 +22,5 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsComponent {
-  products$: Observable<Product[]> = inject(ProductsService).getProducts();
+  products$: Observable<ProductDto[]> = inject(ProductsService).getProducts();
 }

@@ -1,22 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpStatus, NotFoundException,
-  Param,
-  Patch,
-  Post, Res,
-} from '@nestjs/common';
-import { ProductsService } from './products.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { ProductDto } from './dtos/product.dto';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Patch, Post } from "@nestjs/common";
+import { ProductsService } from "./products.service";
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ProductDto } from "../../../api-models/src/lib/dtos/product.dto";
 
 @ApiTags('Products')
 @Controller('products')

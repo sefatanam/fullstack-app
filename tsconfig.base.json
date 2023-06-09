@@ -13,10 +13,12 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@fullstack-app/products": ["libs/products/src/index.ts"],
-      "@fullstack-app/tags": ["libs/tags/src/index.ts"]
+      "@fullstack-app/tags": ["libs/tags/src/index.ts"],
+      "@fullstack-app/api-model": ["libs/api-models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

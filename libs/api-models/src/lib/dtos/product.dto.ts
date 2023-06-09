@@ -1,9 +1,10 @@
-import { IsArray, IsBoolean, IsInt, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { TagDto } from '@fullstack-app/tags';
-import { Type } from 'class-transformer';
+import { IsArray, IsBoolean, IsInt, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { TagDto } from "@fullstack-app/tags";
+import { Type } from "class-transformer";
 
 export class ProductDto {
+  readonly id:string;
   @ApiProperty()
   @IsString()
   readonly name: string;

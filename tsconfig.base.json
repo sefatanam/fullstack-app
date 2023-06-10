@@ -16,9 +16,9 @@
     "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
+      "@fullstack-app/api-model": ["libs/api-models/src/index.ts"],
       "@fullstack-app/products": ["libs/products/src/index.ts"],
-      "@fullstack-app/tags": ["libs/tags/src/index.ts"],
-      "@fullstack-app/api-model": ["libs/api-models/src/index.ts"]
+      "@fullstack-app/tags": ["libs/tags/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

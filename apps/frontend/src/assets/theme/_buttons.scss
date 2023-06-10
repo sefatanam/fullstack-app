@@ -1,0 +1,13 @@
+
+/* You can add global styles to this file, and also import other style files */
+.button{
+  @apply rounded-md capitalize w-full text-center p-3 font-bold;
+
+  &.primary{
+    @apply text-white bg-primary;
+  }
+  &.gray{
+    @apply text-white bg-primary;
+  }
+}
+

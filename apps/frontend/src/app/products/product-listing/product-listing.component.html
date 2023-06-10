@@ -1,0 +1,31 @@
+<section class="p-2 grid gap-4">
+  <h1 class="text-2xl text-center">Products</h1>
+  <button
+    (click)="gotoCreateProduct()"
+    type="button"
+    class="button primary"
+  >
+    Add new product
+  </button>
+
+  <ul class="space-y-2 rounded-xl " *ngIf="products$ | async as products">
+    <li class="p-2 ring-1 ring-accent rounded-md" *ngFor="let product of products">
+      <h2 class="text-lg">{{ product.name }}</h2>
+      <p>
+          <span class="text-gray-500">Price:&nbsp;</span
+          ><span>{{ product.price | currency }}</span>
+      </p>
+      <p>
+          <span class="text-gray-500">Description:&nbsp;</span
+          >{{ product.description }}
+      </p>
+      <p>
+        <span class="text-gray-500">Tags:&nbsp;</span>
+        <span *ngFor="let tag of product.tags; let last = last">
+            {{ tag.name }} <ng-container *ngIf="!last">,&nbsp;</ng-container>
+          </span>
+      </p>
+    </li>
+  </ul>
+
+</section>

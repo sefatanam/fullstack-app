@@ -1,12 +1,52 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
+
+type OnChangeCallback = (value: string) => void;
+type OnTouchedCallback = () => void;
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputComponent,
+      multi: true,
+    },
+  ],
 })
-export class InputComponent {}
+export class InputComponent implements ControlValueAccessor {
+  @Input({ required: true }) placeholder: string;
+  @Input({ required: true }) label: string;
+  @Input() type: 'text' | 'number' = 'text';
+  value: string;
+  disabled = false;
+  onChange: OnChangeCallback;
+  onTouched: OnTouchedCallback;
+  registerOnChange(fn: OnChangeCallback): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: OnTouchedCallback): void {
+    this.onTouched = fn;
+  }
+  writeValue(value: string): void {
+    if (this.disabled) return;
+    this.value = value;
+  }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+  setValue($event: Event) {
+    if (this.disabled) return;
+
+    const inputEvent = $event as InputEvent;
+    this.value = (inputEvent.target as HTMLInputElement).value;
+    this.onChange(this.value);
+    this.onTouched();
+  }
+}

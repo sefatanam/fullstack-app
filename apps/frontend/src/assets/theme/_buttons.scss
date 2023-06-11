@@ -9,5 +9,8 @@
   &.gray{
     @apply text-white bg-primary;
   }
+  &.accent{
+    @apply text-white bg-accent;
+  }
 }
 

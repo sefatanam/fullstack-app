@@ -4,14 +4,15 @@
     Back
   </button>
 
-  <form>
-    <app-input></app-input>
-    <app-input></app-input>
-    <app-input></app-input>
-    <app-input></app-input>
-    <app-input></app-input>
-    <app-input></app-input>
-    <app-input></app-input>
+  <form [formGroup]="productForm" (ngSubmit)="submit()">
+    <app-input formControlName="name" placeholder="Mac Book Pro" label="Name"></app-input>
+    <app-input formControlName="price" [type]="'number'" placeholder="3499.00" label="Price"></app-input>
+    <app-input formControlName="description" placeholder="The MacBook is Apple's ..." label="Description"></app-input>
+    <app-input formControlName="image" placeholder="https://pixabay.com/product/example" label="Image URL"></app-input>
+    <app-input formControlName="videoUrl" placeholder="https://youtu.be/example" label="Video URL"></app-input>
+    <button class="button accent" type="submit">
+      Create Product
+    </button>
   </form>
 
 </section>

@@ -14,4 +14,7 @@ export class ProductsService {
       `${environment.backend_url}/products`
     );
   }
+  createProduct(product: ProductDto) {
+    return this.httpClient.post<ProductDto>(`${environment.backend_url}/products`, product)
+  }
 }

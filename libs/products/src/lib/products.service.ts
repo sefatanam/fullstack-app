@@ -47,15 +47,34 @@ export class ProductsService {
   }
 
   async createProduct(product: ProductDto) {
+    // return await prisma.product.create({
+    //   data: {
+    //     ...product,
+    //     tags: {
+    //       create: product.tags.map((tagDto) => ({
+    //         name: tagDto.name,
+    //       })),
+    //     },
+    //   },
+    //   include: {
+    //     tags: true,
+    //   },
+    // });
+
+    const createData: any = {
+      ...product,
+    };
+
+    if (product.tags) {
+      createData.tags = {
+        create: product.tags.map((tagDto) => ({
+          name: tagDto.name,
+        })),
+      };
+    }
+
     return await prisma.product.create({
-      data: {
-        ...product,
-        tags: {
-          create: product.tags.map((tagDto) => ({
-            name: tagDto.name,
-          })),
-        },
-      },
+      data: createData,
       include: {
         tags: true,
       },

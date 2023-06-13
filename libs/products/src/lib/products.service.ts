@@ -33,6 +33,7 @@ export class ProductsService {
         isDisable: false,
       },
       select: {
+        id:true,
         name: true,
         price: true,
         description: true,
@@ -47,20 +48,6 @@ export class ProductsService {
   }
 
   async createProduct(product: ProductDto) {
-    // return await prisma.product.create({
-    //   data: {
-    //     ...product,
-    //     tags: {
-    //       create: product.tags.map((tagDto) => ({
-    //         name: tagDto.name,
-    //       })),
-    //     },
-    //   },
-    //   include: {
-    //     tags: true,
-    //   },
-    // });
-
     const createData: any = {
       ...product,
     };

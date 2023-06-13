@@ -8,24 +8,17 @@
     Add new product
   </button>
 
-  <ul class="space-y-2 rounded-xl " *ngIf="products$ | async as products">
-    <li class="p-2 ring-1 ring-accent rounded-md" *ngFor="let product of products">
-      <h2 class="text-lg">{{ product.name }}</h2>
-      <p>
-          <span class="text-gray-500">Price:&nbsp;</span
-          ><span>{{ product.price | currency }}</span>
-      </p>
-      <p>
-          <span class="text-gray-500">Description:&nbsp;</span
-          >{{ product.description }}
-      </p>
-      <p>
-        <span class="text-gray-500">Tags:&nbsp;</span>
-        <span *ngFor="let tag of product.tags; let last = last">
-            {{ tag.name }} <ng-container *ngIf="!last">,&nbsp;</ng-container>
-          </span>
-      </p>
-    </li>
-  </ul>
+  <section class="grid gap-2 grid-cols-1 md:grid-cols-3 lg:grid-cols-4" *ngIf="products$ | async as products">
+    <div *ngFor="let product of products" class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{product.name}}</h5>
+      </a>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{product.description}}</p>
+      <a routerLink="/products/update/{{product.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-accent rounded-lg hover:bg-accent focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+        Update
+      </a>
+    </div>
+
+  </section>
 
 </section>

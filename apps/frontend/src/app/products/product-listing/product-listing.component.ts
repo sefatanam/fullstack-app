@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ProductsService } from "../products.service";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'fullstack-app-product-listing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-listing.component.html',
 })
 export class ProductListingComponent implements OnInit{

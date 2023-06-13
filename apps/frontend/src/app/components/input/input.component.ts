@@ -1,6 +1,14 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from "@angular/forms";
 
 type OnChangeCallback = (value: string) => void;
 type OnTouchedCallback = () => void;
@@ -18,16 +26,24 @@ type OnTouchedCallback = () => void;
       useExisting: InputComponent,
       multi: true,
     },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: InputComponent,
+      multi: true,
+    },
   ],
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, Validator {
   @Input({ required: true }) placeholder: string;
   @Input({ required: true }) label: string;
   @Input() type: 'text' | 'number' = 'text';
+
   value: string;
   disabled = false;
   onChange: OnChangeCallback;
   onTouched: OnTouchedCallback;
+  protected formControl: AbstractControl;
+
   registerOnChange(fn: OnChangeCallback): void {
     this.onChange = fn;
   }
@@ -43,10 +59,14 @@ export class InputComponent implements ControlValueAccessor {
   }
   setValue($event: Event) {
     if (this.disabled) return;
-
     const inputEvent = $event as InputEvent;
     this.value = (inputEvent.target as HTMLInputElement).value;
     this.onChange(this.value);
     this.onTouched();
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    this.formControl=control;
+    return null;
   }
 }

@@ -1,1 +1,33 @@
-<p>product-view works!</p>
+<section class="p-2 grid gap-4">
+  <h1 class="text-md md:text-2xl text-center">
+    You are viewing {{ product.name }} Details
+  </h1>
+  <a routerLink="/products" class="button primary"> Products </a>
+
+  <div class="md:grid md:place-items-center">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg md:w-1/3">
+      <div class="h-64 w-full overflow-hidden object-cover">
+        <img
+          class="w-full h-full object-cover"
+          [src]="product.image | imageNotFound"
+          [alt]="product.name"
+        />
+      </div>
+      <div class="px-6 py-4">
+        <span
+          *ngFor="let tag of product.tags"
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+          >{{ tag.name }}</span
+        >
+      </div>
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">{{ product.name }}</div>
+        <p class="text-gray-700 text-base">{{ product.description }}</p>
+        <p class="text-gray-700 text-base font-semibold">
+          {{ product.price | currency }}
+        </p>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</section>

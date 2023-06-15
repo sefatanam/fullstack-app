@@ -17,6 +17,9 @@ export class ProductsService {
 
   addOrUpdate(product: ProductDto){
     if(!product.id){
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      delete product.id;
       return this.createProduct(product)
     }else{
       return  this.updateProduct(product)
@@ -37,5 +40,9 @@ export class ProductsService {
    */
   updateProduct(product: ProductDto){
     return this.httpClient.patch<ProductDto>(`${environment.backend_url}/products/${product.id}`, product)
+  }
+
+  deleteProduct(id:string){
+    return this.httpClient.delete(`${environment.backend_url}/products/${id}`)
   }
 }

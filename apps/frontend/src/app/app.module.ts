@@ -10,9 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(appRoutes, { initialNavigation: "enabledBlocking" })
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {}

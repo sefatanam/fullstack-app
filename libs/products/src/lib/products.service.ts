@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 @Injectable()
 export class ProductsService {
   async getProducts() {
-    return await prisma.product.findMany({
+    return prisma.product.findMany({
       where: {
         isDisable: false,
       },
@@ -27,17 +27,18 @@ export class ProductsService {
   }
 
   async getProduct(id: string) {
-    return await prisma.product.findFirst({
+    return prisma.product.findFirst({
       where: {
         id: id,
         isDisable: false,
       },
       select: {
-        id:true,
+        id: true,
         name: true,
         price: true,
         description: true,
         image: true,
+        videoUrl: true,
         tags: {
           select: {
             name: true,
@@ -60,7 +61,7 @@ export class ProductsService {
       };
     }
 
-    return await prisma.product.create({
+    return prisma.product.create({
       data: createData,
       include: {
         tags: true,
@@ -69,7 +70,7 @@ export class ProductsService {
   }
 
   async deleteProduct(id: string) {
-    return await prisma.product.delete({
+    return prisma.product.delete({
       where: {
         id: id,
       },

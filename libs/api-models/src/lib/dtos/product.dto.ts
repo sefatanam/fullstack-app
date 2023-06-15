@@ -4,24 +4,24 @@ import { TagDto } from "@fullstack-app/tags";
 import { Type } from "class-transformer";
 
 export class ProductDto {
-  readonly id:string;
+  id:string;
   @ApiProperty()
   @IsString()
-  readonly name: string;
+  name: string;
   @ApiProperty()
   @IsInt()
-  readonly price: number;
+  price: number;
   @ApiProperty()
   @IsString()
-  readonly description: string;
+  description: string;
   @ApiProperty()
   @IsString()
-  readonly image: string;
+  image: string;
   @ApiProperty()
   @IsString()
-  readonly videoUrl: string;
+  videoUrl: string;
   @IsBoolean()
-  readonly isDisable: boolean;
+  isDisable: boolean;
   @ApiProperty({ isArray: true, type: () => TagDto })
   @IsArray()
   @Type(() => TagDto)

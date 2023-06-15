@@ -1,5 +1,5 @@
 import { Route } from "@angular/router";
-import { productResolver } from "./products/product-form/product.resolver";
+import { productResolver } from "./products/product.resolver";
 
 export const appRoutes: Route[] = [
   {
@@ -32,6 +32,16 @@ export const appRoutes: Route[] = [
           ),
         data:{
           title: 'Create Product',
+        }
+      },
+      {
+        path:'view/:id',
+        loadComponent:()=>import('./products/product-view/product-view.component').then((c)=>c.ProductViewComponent),
+        data:{
+          title: 'View Product'
+        },
+        resolve:{
+          product: productResolver
         }
       },
       {

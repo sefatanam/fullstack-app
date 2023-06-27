@@ -5,6 +5,10 @@
     "types": []
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts"],
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/components/utils/components.d.ts",
+    "src/app/utils/transforms/to-chip.transform.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

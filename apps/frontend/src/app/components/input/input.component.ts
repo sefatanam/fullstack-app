@@ -7,11 +7,9 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator
-} from "@angular/forms";
-
-type OnChangeCallback = (value: string) => void;
-type OnTouchedCallback = () => void;
+  Validator,
+} from '@angular/forms';
+import { OnChangeCallback, OnTouchedCallback } from '../utils/components';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -39,12 +37,12 @@ export class InputComponent implements ControlValueAccessor, Validator {
   @Input() type: 'text' | 'number' = 'text';
 
   value: string;
-  disabled = false;
-  onChange: OnChangeCallback;
-  onTouched: OnTouchedCallback;
   protected formControl: AbstractControl;
+  onChange: OnChangeCallback<string>;
+  onTouched: OnTouchedCallback;
+  disabled = false;
 
-  registerOnChange(fn: OnChangeCallback): void {
+  registerOnChange(fn: OnChangeCallback<string>): void {
     this.onChange = fn;
   }
   registerOnTouched(fn: OnTouchedCallback): void {
@@ -66,7 +64,7 @@ export class InputComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    this.formControl=control;
+    this.formControl = control;
     return null;
   }
 }

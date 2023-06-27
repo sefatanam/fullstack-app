@@ -16,12 +16,18 @@ import {
 import { Title } from '@angular/platform-browser';
 import { ProductsService } from '../products.service';
 import { ProductDto } from '@fullstack-app/api-model';
-import { Validator } from "class-validator";
+import { ChipsInputComponent } from '../../components/chips-input/chips-input.component';
+import { ToChipTransform } from '../../utils/transforms/to-chip.transform';
 
 @Component({
   selector: 'fullstack-app-product-form',
   standalone: true,
-  imports: [CommonModule, InputComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    InputComponent,
+    ReactiveFormsModule,
+    ChipsInputComponent,
+  ],
   templateUrl: './product-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -56,12 +62,13 @@ export class ProductFormComponent implements OnInit {
   }
   submit() {
     if (this.productForm.invalid) {
-      this.productForm.markAllAsTouched() ;
+      this.productForm.markAllAsTouched();
       return;
     }
-    let value: ProductDto = this.productForm.value as unknown as ProductDto;
-    value = { ...value, price: +value.price };
-    this.service.addOrUpdate(value).subscribe(async () => {
+    let formValue = this.productForm.value as ProductDto;
+    const tags = formValue.tags.map((el) => ({ name: el.name ?? el }));
+    formValue = { ...formValue, price: +formValue.price, tags: tags };
+    this.service.addOrUpdate(formValue).subscribe(async () => {
       await this.router.navigateByUrl('/products');
     });
   }
@@ -69,11 +76,17 @@ export class ProductFormComponent implements OnInit {
   makeForm(product: ProductDto) {
     return this.formBuilder.group({
       id: product.id,
-      name: new FormControl(product.name,[Validators.required]),
-      price: new FormControl(product.price,[Validators.required, Validators.min(10)]),
-      description: new FormControl(product.description,[Validators.required]),
-      image: new FormControl(product.image,[Validators.required]),
-      videoUrl: new FormControl(product.videoUrl,[Validators.required]),
+      name: new FormControl(product.name, [Validators.required]),
+      price: new FormControl(product.price, [
+        Validators.required,
+        Validators.min(1),
+      ]),
+      description: new FormControl(product.description, [Validators.required]),
+      image: new FormControl(product.image, [Validators.required]),
+      videoUrl: new FormControl(product.videoUrl, [Validators.required]),
+      tags: new FormControl(ToChipTransform(product.tags), [
+        Validators.required,
+      ]),
     });
   }
 }

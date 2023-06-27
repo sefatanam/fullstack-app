@@ -5,11 +5,12 @@
   </button>
 
   <form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="submit()">
-    <app-input formControlName="name" placeholder="Mac Book Pro" label="Name"></app-input>
-    <app-input formControlName="price" [type]="'number'" placeholder="3499.00" label="Price"></app-input>
-    <app-input formControlName="description" placeholder="The MacBook is Apple's ..." label="Description"></app-input>
-    <app-input formControlName="image" placeholder="https://pixabay.com/product/example" label="Image URL"></app-input>
-    <app-input formControlName="videoUrl" placeholder="https://youtu.be/example" label="Video URL"></app-input>
+    <app-input formControlName="name" placeholder="eg: Mac Book Pro" label="Name"></app-input>
+    <app-input formControlName="price" [type]="'number'" placeholder="eg: 3499.00" label="Price"></app-input>
+    <app-input formControlName="description" placeholder="eg: The MacBook is Apple's ..." label="Description"></app-input>
+    <app-input formControlName="image" placeholder="eg: https://pixabay.com/product/example" label="Image URL"></app-input>
+    <app-input formControlName="videoUrl" placeholder="eg: https://youtu.be/example" label="Video URL"></app-input>
+    <chips-input  formControlName="tags" label="Product Tags"></chips-input>
     <button class="button accent" type="submit">
       {{title.getTitle()}}
     </button>

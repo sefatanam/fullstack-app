@@ -9,7 +9,8 @@
       <div class="h-64 w-full overflow-hidden object-cover">
         <img
           class="w-full h-full object-cover"
-          [src]="product.image | imageNotFound"
+          defaultImg
+          [src]="product.image"
           [alt]="product.name"
         />
       </div>

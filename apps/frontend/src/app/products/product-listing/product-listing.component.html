@@ -12,7 +12,7 @@
   <section data-cy="products_container" class="grid gap-2 grid-cols-1 md:grid-cols-3 lg:grid-cols-4" *ngIf="products$ | async as products">
     <div data-cy="product_item" *ngFor="let product of products" class="flex flex-col justify-center gap-2 items-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="h-40 w-full rounded-lg overflow-hidden object-contain">
-          <img class="w-full h-full object-cover" [src]="product.image | imageNotFound" [alt]="product.name">
+          <img class="w-full h-full object-cover" defaultImg [src]="product.image" [alt]="product.name">
         </div>
         <a routerLink="/products/view/{{product.id}}" class="hover:underline">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{product.name}}</h5>

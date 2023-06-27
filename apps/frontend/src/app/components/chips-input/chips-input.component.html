@@ -1,0 +1,40 @@
+<div class="mb-2">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{label}}</label>
+    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 flex flex-wrap gap-2">
+        <mat-chip-grid #chipGrid aria-label="Type keyword here.." [formControl]="formControl" >
+            <mat-chip-row *ngFor="let keyword of values" (removed)="removeKeyword(keyword)">
+              {{keyword}}
+              <button matChipRemove aria-label="'remove ' + keyword">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input class="!outline-none !border-none bg-gray-50" placeholder="Type Keyword here.." [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)"/>
+    </div>
+  </div>
+  <div class="text-red-400 mb-2" *ngIf="formControl.touched">
+    <div *ngIf="formControl.errors && formControl.errors['required']">
+      This field is required.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['email']">
+      Invalid email format.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['pattern']">
+      Invalid input format.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['min']">
+      Input must be greater than or equal to
+      {{ formControl.errors['min']!.min }}.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['max']">
+      Input must be less than or equal to {{ formControl.errors['max']!.max }}.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['minlength']">
+      Input must have a minimum length of
+      {{ formControl.errors['minlength']['requiredLength'] }} characters.
+    </div>
+    <div *ngIf="formControl.errors && formControl.errors['maxlength']">
+      Input must have a maximum length of
+      {{ formControl.errors['maxlength']['requiredLength'] }} characters.
+    </div>
+</div>

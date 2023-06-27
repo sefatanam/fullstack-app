@@ -48,25 +48,19 @@ export class ProductsService {
     });
   }
 
-  async createProduct(product: ProductDto) {
-    const createData: any = {
-      ...product,
-    };
-
-    if (product.tags) {
-      createData.tags = {
-        create: product.tags.map((tagDto) => ({
-          name: tagDto.name,
-        })),
-      };
-    }
-
-    return prisma.product.create({
-      data: createData,
+  async createProduct(productDto: ProductDto) {
+    const { tags, ...product } = productDto;
+    const productTags = tags ? { create: tags } : undefined;
+    const createdProduct = await prisma.product.create({
+      data: {
+        ...product,
+        tags: productTags,
+      },
       include: {
         tags: true,
       },
     });
+    return createdProduct;
   }
 
   async deleteProduct(id: string) {
@@ -78,18 +72,18 @@ export class ProductsService {
   }
 
   /**
-   * Support PATCH Update also
+   * [PATCH] Supported
    * @param id
    * @param product
-   * @returns
+   * @returns Promise<Product & {tags: Tag[]}>
    */
   async updateProduct(id: string, product: ProductDto) {
-    const updateData: Prisma.ProductUpdateInput =
-      product as Prisma.ProductUpdateInput;
-
-    if (product.tags) {
-      updateData.tags = {
-        create: product.tags.map((tag) => ({
+    const { tags, ...updateData } = product;
+    const updateInput: Prisma.ProductUpdateInput = { ...updateData };
+    if (tags) {
+      updateInput.tags = {
+        deleteMany: {}, // Delete all existing tags associated with the product
+        create: tags.map((tag) => ({
           name: tag.name,
         })),
       };
@@ -98,7 +92,7 @@ export class ProductsService {
       where: {
         id: id,
       },
-      data: updateData,
+      data: updateInput,
       include: {
         tags: true,
       },

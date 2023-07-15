@@ -1,5 +1,5 @@
 <div class="mb-2">
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{label}}</label>
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{label}} <small class="text-gray-500 font-sans ">(Press enter after every word to add in tag.)</small></label>
     <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 flex flex-wrap gap-2">
         <mat-chip-grid #chipGrid aria-label="Type keyword here.." [formControl]="formControl" >
             <mat-chip-row *ngFor="let keyword of values" (removed)="removeKeyword(keyword)">

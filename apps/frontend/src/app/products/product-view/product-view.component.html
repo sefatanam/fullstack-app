@@ -14,14 +14,14 @@
           [alt]="product.name"
         />
       </div>
-      <div class="px-6 py-4">
+      <div class="py-4">
         <span
           *ngFor="let tag of product.tags"
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 m-1"
           >{{ tag.name }}</span
         >
       </div>
-      <div class="px-6 py-4">
+      <div class="py-2 px-2">
         <div class="font-bold text-xl mb-2">{{ product.name }}</div>
         <p class="text-gray-700 text-base">{{ product.description }}</p>
         <p class="text-gray-700 text-base font-semibold">

@@ -63,13 +63,14 @@ export class ProductFormComponent implements OnInit {
   submit() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
+      alert('Invalid form');
       return;
     }
     let formValue = this.productForm.value as ProductDto;
     const tags = formValue.tags.map((el) => ({ name: el.name ?? el }));
     formValue = { ...formValue, price: +formValue.price, tags: tags };
-    this.service.addOrUpdate(formValue).subscribe(async () => {
-      await this.router.navigateByUrl('/products');
+    this.service.addOrUpdate(formValue).subscribe(async (response) => {
+      if (response.id) await this.router.navigateByUrl('/products');
     });
   }
 
@@ -79,7 +80,7 @@ export class ProductFormComponent implements OnInit {
       name: new FormControl(product.name, [Validators.required]),
       price: new FormControl(product.price, [
         Validators.required,
-        Validators.min(1),
+        Validators.min(0),
       ]),
       description: new FormControl(product.description, [Validators.required]),
       image: new FormControl(product.image, [Validators.required]),

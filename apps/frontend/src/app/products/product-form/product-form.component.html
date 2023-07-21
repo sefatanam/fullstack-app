@@ -4,14 +4,14 @@
     Back
   </button>
 
-  <form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="submit()" data-cy="form-group">
+  <form *ngIf="productForm" [formGroup]="productForm" data-cy="form-group">
     <app-input formControlName="name" placeholder="eg: Mac Book Pro" label="Name" data-cy="name"></app-input>
     <app-input formControlName="price" [type]="'number'" placeholder="eg: 3499.00" label="Price" data-cy="price"></app-input>
     <app-input formControlName="description" placeholder="eg: The MacBook is Apple's ..." label="Description" data-cy="description"></app-input>
     <app-input formControlName="image" placeholder="eg: https://pixabay.com/product/example" label="Image URL" data-cy="image"></app-input>
     <app-input formControlName="videoUrl" placeholder="eg: https://youtu.be/example" label="Video URL" data-cy="videoUrl"></app-input>
     <chips-input formControlName="tags" label="Product Tags" data-cy="tags"></chips-input>
-    <button class="button accent" type="submit" data-cy="submit-button">
+    <button class="button accent" type="submit" data-cy="submit-button" (click)="submit()">
       {{title.getTitle()}}
     </button>
   </form>

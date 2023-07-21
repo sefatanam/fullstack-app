@@ -1,0 +1,20 @@
+# Build Stage
+FROM docker.io/node:lts-alpine as build
+RUN apk add g++ make py3-pip
+WORKDIR /app
+RUN npm install -g npm@9.6.7
+COPY ["package.json", "package-lock.json","./"]
+RUN npm cache verify
+RUN npm install
+RUN npm i -g @nrwl/cli
+COPY ["nx.json", "./"]
+COPY . .
+RUN npx nx run frontend:build --configuration=development
+# Deploy to Nginx
+FROM nginx:alpine
+COPY --from=build /app/dist/apps/frontend /usr/share/nginx/html
+# Expose the port used by Nginx
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

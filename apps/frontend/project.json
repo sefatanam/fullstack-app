@@ -44,10 +44,10 @@
         "development": {
           "buildOptimizer": true,
           "optimization": true,
-          "vendorChunk": false,
+          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true,
+          "sourceMap": false,
+          "namedChunks": false,
           "fileReplacements": [
             {
               "with": "apps/frontend/src/environments/environment.ts",

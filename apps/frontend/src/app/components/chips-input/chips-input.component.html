@@ -9,7 +9,7 @@
               </button>
             </mat-chip-row>
           </mat-chip-grid>
-          <input class="!outline-none !border-none bg-gray-50" placeholder="Type Keyword here.." [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)"/>
+          <input class="!outline-none !border-none bg-gray-50" placeholder="Type Keyword here.." [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)" data-cy="chip-input-control" />
     </div>
   </div>
   <div class="text-red-400 mb-2" *ngIf="formControl.touched">

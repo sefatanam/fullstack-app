@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Patch, Post } from "@nestjs/common";
 import { ProductsService } from "./products.service";
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ProductDto } from "../../../api-models/src/lib/dtos/product.dto";
 
 @ApiTags('Products')

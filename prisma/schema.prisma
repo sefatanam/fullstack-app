@@ -18,7 +18,7 @@ model Tag {
 
 model Product {
   id          String   @id @default(uuid())
-  name        String
+  name        String  
   price       Int
   description String
   image       String

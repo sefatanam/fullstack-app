@@ -1,6 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { Prisma, PrismaClient } from "@prisma/client";
-import { ProductDto } from "@fullstack-app/api-model";
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { ProductDto } from '@fullstack-app/api-model';
+import { TagDto } from '@fullstack-app/tags';
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -48,19 +53,54 @@ export class ProductsService {
     });
   }
 
+  private async getOrCreateTagsReference(
+    transaction: PrismaClient,
+    tags: Array<TagDto>
+  ) {
+    const tagReferences: Array<{ id: string }> = [];
+    for (const tag of tags) {
+      const existingTag = await transaction.tag.findUnique({
+        where: { name: tag.name },
+      });
+      if (existingTag) {
+        tagReferences.push({ id: existingTag.id });
+      } else {
+        const newTag = await transaction.tag.create({
+          data: { name: tag.name },
+        });
+        tagReferences.push({ id: newTag.id });
+      }
+    }
+
+    return tagReferences;
+  }
+
   async createProduct(productDto: ProductDto) {
-    const { tags, ...product } = productDto;
-    const productTags = tags ? { create: tags } : undefined;
-    const createdProduct = await prisma.product.create({
-      data: {
-        ...product,
-        tags: productTags,
-      },
-      include: {
-        tags: true,
-      },
-    });
-    return createdProduct;
+    if (!productDto.name.trim() || productDto.tags.length === 0) {
+      throw new BadRequestException(
+        'Invalid product name or no tags provided.'
+      );
+    }
+    try {
+      await prisma.$transaction(async (tx) => {
+        const tagReferences = await this.getOrCreateTagsReference(
+          tx as PrismaClient,
+          productDto.tags
+        );
+        return await tx.product.create({
+          data: {
+            ...productDto,
+            tags: {
+              connect: tagReferences,
+            },
+          },
+        });
+      });
+    } catch (err) {
+      throw new InternalServerErrorException(
+        `Someting went wrong to create this product. More ${err}`
+      );
+    }
   }
 
   async deleteProduct(id: string) {
